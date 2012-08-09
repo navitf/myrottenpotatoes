@@ -11,8 +11,10 @@ class MoviesController < ApplicationController
   #Person.find(:all, :conditions => { :friends => ["Bob", "Steve", "Fred"] }
   
 	@all_ratings = Movie.all_ratings;
-	
-	selected_ratings = params[:ratings].keys
+	selected_ratings = []
+	if (!(params[:ratings].nil?))
+		selected_ratings = params[:ratings].keys
+	end	
 	
 	if (params[:sort_by]=='title')
 		@movies = Movie.find(:all, :order => "title" , :condition => { :rating => selected_ratings})
