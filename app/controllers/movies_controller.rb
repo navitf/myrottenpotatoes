@@ -17,11 +17,11 @@ class MoviesController < ApplicationController
 	end	
 	
 	if (params[:sort_by]=='title')
-		@movies = Movie.find(:all, :order => "title" , :condition => { :rating => selected_ratings})
+		@movies = Movie.find(:all, :order => "title" , :conditions => { :rating => selected_ratings})
 	elsif (params[:sort_by]=='release_date')
-		@movies = Movie.find(:all, :order => "release_date" , :condition => { :rating => selected_ratings})
+		@movies = Movie.find(:all, :order => "release_date" , :conditions => { :rating => selected_ratings})
 	else
-		@movies = Movie.find(:all,  :condition => { :rating => selected_ratings})
+		@movies = Movie.find(:all,  :conditions => { :rating => selected_ratings})
 	end
   end
 
