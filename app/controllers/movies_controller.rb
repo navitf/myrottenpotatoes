@@ -18,7 +18,7 @@ class MoviesController < ApplicationController
 	@ratings_checked = {}
 	#update checked value to display in view
 	@all_ratings.each { |rating|
-		@ratings_checked[rating] = params[:ratings][rating].nil? ? false : true;
+		@ratings_checked[rating] = (params[:ratings].nil? || params[:ratings][rating].nil?) ? false : true;
 	}
 	
 	if (params[:sort_by]=='title')
