@@ -15,6 +15,11 @@ class MoviesController < ApplicationController
 	if (!(params[:ratings].nil?))
 		selected_ratings = params[:ratings].keys
 	end	
+	@ratings_checked = {}
+	#update checked value to display in view
+	@all_ratings.each { |rating|
+		@ratings_checked[rating] = params[:ratings][rating].nil? ? false : true;
+	}
 	
 	if (params[:sort_by]=='title')
 		@movies = Movie.find(:all, :order => "title" , :conditions => { :rating => selected_ratings})
