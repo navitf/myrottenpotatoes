@@ -18,7 +18,15 @@ class MoviesController < ApplicationController
 	(params[:ratings].nil? && !session[:ratings].nil?)
   )
 	flash.keep
-	redirect_to movies_path(session);
+	new_params = {}
+	if (session[:sort_by].nil?) ) 
+		new_params[:sort_by] = session[:sort_by]
+	end
+	if (session[:ratings].nil?) ) 
+		new_params[:ratings] = session[:ratings]
+	end
+	
+	redirect_to movies_path(new_params);
   end
   # now on : use session params
 	@all_ratings = Movie.all_ratings;
