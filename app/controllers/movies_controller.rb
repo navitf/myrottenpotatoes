@@ -19,10 +19,10 @@ class MoviesController < ApplicationController
   )
 	flash.keep
 	new_params = {}
-	if (session[:sort_by].nil?) ) 
+	if (!session[:sort_by].nil?)  
 		new_params[:sort_by] = session[:sort_by]
 	end
-	if (session[:ratings].nil?) ) 
+	if (!session[:ratings].nil?)  
 		new_params[:ratings] = session[:ratings]
 	end
 	
