@@ -10,20 +10,24 @@ class MoviesController < ApplicationController
   # Company.find(:first, :conditions => "name = 'Next Angle'")
   #Person.find(:all, :conditions => { :friends => ["Bob", "Steve", "Fred"] }
   
+  # override session values with params values
+  params.each { |key,value| session[key] = value }
+  # now on : use session params
 	@all_ratings = Movie.all_ratings;
+  # update list of ratings to filter	
 	selected_ratings = []
-	if (!(params[:ratings].nil?))
-		selected_ratings = params[:ratings].keys
+	if (!(session[:ratings].nil?))
+		selected_ratings = session[:ratings].keys
 	end	
 	@ratings_checked = {}
 	#update checked value to display in view
 	@all_ratings.each { |rating|
-		@ratings_checked[rating] = (params[:ratings].nil? || params[:ratings][rating].nil?) ? false : true;
+		@ratings_checked[rating] = (session[:ratings].nil? || session[:ratings][rating].nil?) ? false : true;
 	}
 	
-	if (params[:sort_by]=='title')
+	if (session[:sort_by]=='title')
 		@movies = Movie.find(:all, :order => "title" , :conditions => { :rating => selected_ratings})
-	elsif (params[:sort_by]=='release_date')
+	elsif (session[:sort_by]=='release_date')
 		@movies = Movie.find(:all, :order => "release_date" , :conditions => { :rating => selected_ratings})
 	else
 		@movies = Movie.find(:all,  :conditions => { :rating => selected_ratings})
