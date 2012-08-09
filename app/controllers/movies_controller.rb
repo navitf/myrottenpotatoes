@@ -12,6 +12,14 @@ class MoviesController < ApplicationController
   
   # override session values with params values
   params.each { |key,value| session[key] = value }
+  
+  # if params was missing effecting parameter: redirect page to kepp RESTfulness
+  if ((params[:sort_by].nil? && !session[:sort_by].nil?) ||
+	(params[:ratings].nil? && !session[:ratings].nil?)
+  )
+	flash.keep
+	redirect_to movies_path(session);
+  end
   # now on : use session params
 	@all_ratings = Movie.all_ratings;
   # update list of ratings to filter	
