@@ -7,13 +7,19 @@ class MoviesController < ApplicationController
   end
 
   def index
+  # Company.find(:first, :conditions => "name = 'Next Angle'")
+  #Person.find(:all, :conditions => { :friends => ["Bob", "Steve", "Fred"] }
+  
 	@all_ratings = Movie.all_ratings;
+	
+	selected_ratings = params[:ratings].keys
+	
 	if (params[:sort_by]=='title')
-		@movies = Movie.find(:all, :order => "title")
+		@movies = Movie.find(:all, :order => "title" , :condition => { :rating => selected_ratings})
 	elsif (params[:sort_by]=='release_date')
-		@movies = Movie.find(:all, :order => "release_date")
+		@movies = Movie.find(:all, :order => "release_date" , :condition => { :rating => selected_ratings})
 	else
-		@movies = Movie.all
+		@movies = Movie.find(:all,  :condition => { :rating => selected_ratings})
 	end
   end
 
